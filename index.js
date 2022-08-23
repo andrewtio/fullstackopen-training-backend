@@ -1,7 +1,8 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const mongoose = require("mongoose");
 const Note = require("./models/note");
 
 const requestLogger = (request, response, next) => {

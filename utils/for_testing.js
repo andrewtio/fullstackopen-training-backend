@@ -8,6 +8,7 @@ const average = (array) => {
     console.log("item", item);
     return sum + item;
   };
+  console.log("reducer", array.reduce(reducer, 0));
 
   return array.length === 0 ? 0 : array.reduce(reducer, 0) / array.length;
 };

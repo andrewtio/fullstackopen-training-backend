@@ -13,7 +13,7 @@ notesRouter.get("/", async (request, response) => {
   response.json(notes);
 });
 
-notesRouter.get("/:id", async (request, response, next) => {
+notesRouter.get("/:id", async (request, response) => {
   // OLD
   // const id = Number(request.params.id);
   // console.log("id", id);
@@ -50,20 +50,28 @@ notesRouter.get("/:id", async (request, response, next) => {
   //   })
   //   .catch((error) => next(error));
 
-  try {
-    const note = await Note.findById(request.params.id);
-    if (note) {
-      response.json(note);
-    } else {
-      response.status(404).end();
-    }
-  } catch (exception) {
-    next(exception);
+  // OLD
+  // try {
+  //   const note = await Note.findById(request.params.id);
+  //   if (note) {
+  //     response.json(note);
+  //   } else {
+  //     response.status(404).end();
+  //   }
+  // } catch (exception) {
+  //   next(exception);
+  // }
+
+  const note = await Note.findById(request.params.id);
+  if (note) {
+    response.json(note);
+  } else {
+    response.status(404).end();
   }
 });
 
 // POST
-notesRouter.post("/", async (request, response, next) => {
+notesRouter.post("/", async (request, response) => {
   const body = request.body;
   console.log("body", body);
 
@@ -91,12 +99,16 @@ notesRouter.post("/", async (request, response, next) => {
   //   })
   //   .catch((error) => next(error));
 
-  try {
-    const savedNote = await note.save();
-    response.status(201).json(savedNote);
-  } catch (exception) {
-    next(exception);
-  }
+  // OLD
+  // try {
+  //   const savedNote = await note.save();
+  //   response.status(201).json(savedNote);
+  // } catch (exception) {
+  //   next(exception);
+  // }
+
+  const savedNote = await note.save();
+  response.status(201).json(savedNote);
 });
 
 // PUT
@@ -119,7 +131,7 @@ notesRouter.put("/:id", (request, response, next) => {
 });
 
 // DELETE
-notesRouter.delete("/:id", async (request, response, next) => {
+notesRouter.delete("/:id", async (request, response) => {
   // OLD
   // const id = Number(request.params.id);
   // notes = notes.filter((note) => {
@@ -143,12 +155,15 @@ notesRouter.delete("/:id", async (request, response, next) => {
   //   })
   //   .catch((error) => next(error));
 
-  try {
-    await Note.findByIdAndRemove(request.params.id);
-    response.status(204).end();
-  } catch (exception) {
-    next(exception);
-  }
+  // OLD
+  // try {
+  //   await Note.findByIdAndRemove(request.params.id);
+  //   response.status(204).end();
+  // } catch (exception) {
+  //   next(exception);
+  // }
+  await Note.findByIdAndRemove(request.params.id);
+  response.status(204).end();
 });
 
 // app.delete("/api/notes/:id", (request, response) => {
